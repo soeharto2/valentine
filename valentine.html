@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>To My Valentine</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Pinyon+Script&family=IM+Fell+English:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --gold: #c9a96e;
+        --cream: #fdf6ee;
+        --sun-y: #f9c92a;
+        --sun-d: #e8960a;
+      }
+
+      html,
+      body {
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        background: radial-gradient(
+          ellipse at 50% 0%,
+          #1c2e06 0%,
+          #0c1803 45%,
+          #060e01 100%
+        );
+        min-height: 100vh;
+        font-family: "IM Fell English", serif;
+      }
+
+      /* ── PARTICLES ── */
+      .particles,
+      .petal-rain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        animation: floatUp linear infinite;
+        opacity: 0;
+      }
+      @keyframes floatUp {
+        0% {
+          transform: translateY(100vh) scale(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.9;
+        }
+        90% {
+          opacity: 0.4;
+        }
+        100% {
+          transform: translateY(-15vh) scale(1);
+          opacity: 0;
+        }
+      }
+      .fall-item {
+        position: absolute;
+        top: -30px;
+        animation: fallDown linear infinite;
+        opacity: 0;
+      }
+      @keyframes fallDown {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0;
+        }
+        8% {
+          opacity: 0.8;
+        }
+        92% {
+          opacity: 0.3;
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* ── WRAPPER ── */
+      .wrapper {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: clamp(32px, 6vw, 60px) clamp(12px, 4vw, 24px)
+          clamp(48px, 8vw, 80px);
+        gap: clamp(16px, 3vw, 28px);
+      }
+
+      /* ── HEADER ── */
+      .header {
+        text-align: center;
+        width: 100%;
+        opacity: 0;
+        animation: fadeDown 1.4s ease 0.3s forwards;
+      }
+      .header-small {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: clamp(0.65rem, 2.5vw, 0.9rem);
+        letter-spacing: clamp(0.15em, 1vw, 0.45em);
+        color: var(--gold);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .header-title {
+        font-family: "Pinyon Script", cursive;
+        font-size: clamp(3rem, 14vw, 7rem);
+        color: var(--cream);
+        line-height: 1;
+        text-shadow: 0 0 50px rgba(249, 201, 42, 0.35),
+          0 0 100px rgba(249, 201, 42, 0.15);
+      }
+      .header-line {
+        width: clamp(100px, 40vw, 200px);
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        margin: 12px auto 0;
+      }
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── FLOWER STAGE ── */
+      .flower-stage {
+        position: relative;
+        width: min(88vw, 340px);
+        height: min(88vw, 340px);
+        flex-shrink: 0;
+        opacity: 0;
+        animation: stageIn 1s ease 0.9s forwards;
+      }
+      @keyframes stageIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .sun-glow {
+        position: absolute;
+        border-radius: 50%;
+        width: 60%;
+        height: 60%;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+          circle,
+          rgba(249, 201, 42, 0.22) 0%,
+          transparent 75%
+        );
+        animation: glowPulse 3.5s ease-in-out infinite;
+      }
+      @keyframes glowPulse {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 0.7;
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.55);
+          opacity: 1;
+        }
+      }
+
+      /* SVG fills its container, fully fluid */
+      .sunflower-svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        animation: sunSway 5s ease-in-out 7s infinite;
+        overflow: visible;
+      }
+      @keyframes sunSway {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) rotate(0deg) translateY(0);
+        }
+        30% {
+          transform: translate(-50%, -50%) rotate(2.5deg) translateY(-6px);
+        }
+        70% {
+          transform: translate(-50%, -50%) rotate(-2deg) translateY(-3px);
+        }
+      }
+
+      /* Stem draw */
+      .sf-stem {
+        stroke-dasharray: 280;
+        stroke-dashoffset: 280;
+        animation: drawLine 1.8s ease 1.4s forwards;
+      }
+      @keyframes drawLine {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      /* Leaves */
+      .sf-leaf {
+        opacity: 0;
+        animation: leafPop 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+      .sf-leaf-l {
+        transform-origin: 50px 67%;
+        animation-delay: 2.6s;
+      }
+      .sf-leaf-r {
+        transform-origin: 60px 58%;
+        animation-delay: 2.9s;
+      }
+      .sf-leaf-l2 {
+        transform-origin: 48px 77%;
+        animation-delay: 3.1s;
+      }
+      @keyframes leafPop {
+        from {
+          opacity: 0;
+          transform: scale(0) rotate(-22deg);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) rotate(0deg);
+        }
+      }
+
+      /* Petals */
+      @keyframes petalBurst {
+        from {
+          opacity: 0;
+          transform: rotate(var(--rot, 0deg)) scale(0.05);
+        }
+        55% {
+          opacity: 1;
+          transform: rotate(var(--rot, 0deg)) scale(1.08);
+        }
+        to {
+          opacity: 1;
+          transform: rotate(var(--rot, 0deg)) scale(1);
+        }
+      }
+
+      /* Disk */
+      .sf-disk {
+        opacity: 0;
+        animation: diskPop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 5.9s forwards;
+      }
+      @keyframes diskPop {
+        from {
+          opacity: 0;
+          transform: scale(0.1);
+        }
+        65% {
+          transform: scale(1.1);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .disk-seeds {
+        animation: seedSpin 28s linear 7s infinite;
+      }
+      @keyframes seedSpin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ── LETTER CARD ── */
+      .letter-card {
+        width: 100%;
+        max-width: 680px;
+        background: linear-gradient(
+          160deg,
+          #fdf8ee 0%,
+          #f9edd5 50%,
+          #fdf4e0 100%
+        );
+        border-radius: 3px;
+        padding: clamp(44px, 8vw, 64px) clamp(18px, 6vw, 60px)
+          clamp(44px, 8vw, 70px);
+        position: relative;
+        box-shadow: 0 0 0 1px rgba(201, 169, 110, 0.35),
+          0 0 0 5px rgba(201, 169, 110, 0.08), 0 20px 70px rgba(0, 0, 0, 0.55),
+          0 0 90px rgba(249, 201, 42, 0.06);
+        opacity: 0;
+        animation: riseUp 1.2s ease 1.8s forwards;
+      }
+      @keyframes riseUp {
+        from {
+          opacity: 0;
+          transform: translateY(36px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .letter-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 3px;
+        pointer-events: none;
+        background-image: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 27px,
+          rgba(201, 169, 110, 0.1) 28px
+        );
+      }
+
+      /* Wax seal */
+      .wax-seal {
+        position: absolute;
+        top: -26px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: clamp(44px, 10vw, 56px);
+        height: clamp(44px, 10vw, 56px);
+        background: radial-gradient(circle at 38% 36%, #f9c92a, #a85e00);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: clamp(1.2rem, 4vw, 1.6rem);
+        box-shadow: 0 4px 20px rgba(200, 150, 0, 0.5),
+          inset 0 1px 3px rgba(255, 255, 255, 0.2);
+        animation: sealPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.6s both;
+      }
+      @keyframes sealPop {
+        from {
+          transform: translateX(-50%) scale(0) rotate(-20deg);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(-50%) scale(1) rotate(0deg);
+          opacity: 1;
+        }
+      }
+
+      /* Corners — hidden on very small screens */
+      .corner {
+        position: absolute;
+        width: clamp(30px, 6vw, 50px);
+        height: clamp(30px, 6vw, 50px);
+      }
+      .corner svg {
+        width: 100%;
+        height: 100%;
+      }
+      .corner.tl {
+        top: 12px;
+        left: 12px;
+      }
+      .corner.tr {
+        top: 12px;
+        right: 12px;
+        transform: scaleX(-1);
+      }
+      .corner.bl {
+        bottom: 12px;
+        left: 12px;
+        transform: scaleY(-1);
+      }
+      .corner.br {
+        bottom: 12px;
+        right: 12px;
+        transform: scale(-1, -1);
+      }
+
+      /* Letter text */
+      .letter-date {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: clamp(0.72rem, 2.5vw, 0.87rem);
+        color: var(--gold);
+        text-align: right;
+        letter-spacing: 0.12em;
+        margin-bottom: clamp(16px, 4vw, 28px);
+      }
+      .letter-salutation {
+        font-family: "Pinyon Script", cursive;
+        font-size: clamp(1.9rem, 7vw, 2.7rem);
+        color: #7a3d00;
+        margin-bottom: clamp(14px, 3vw, 22px);
+        line-height: 1.1;
+      }
+      .letter-body {
+        font-family: "IM Fell English", serif;
+        font-size: clamp(0.88rem, 3vw, 1.05rem);
+        line-height: 1.95;
+        color: #2a1a00;
+        margin-bottom: clamp(12px, 3vw, 18px);
+      }
+      .letter-body em {
+        font-style: italic;
+        color: #8a4800;
+      }
+      .letter-divider {
+        text-align: center;
+        color: var(--gold);
+        font-size: clamp(0.85rem, 3vw, 1.1rem);
+        letter-spacing: 0.4em;
+        margin: clamp(16px, 4vw, 26px) 0;
+      }
+      .letter-verse {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: clamp(0.88rem, 3vw, 1.06rem);
+        color: #3a2800;
+        line-height: 1.95;
+        text-align: center;
+        padding: 0 clamp(6px, 3vw, 20px);
+        margin: 8px 0 clamp(14px, 4vw, 26px);
+        border-left: 2px solid rgba(201, 169, 110, 0.45);
+        border-right: 2px solid rgba(201, 169, 110, 0.45);
+      }
+      .letter-closing {
+        font-family: "Pinyon Script", cursive;
+        font-size: clamp(1.6rem, 6vw, 2.1rem);
+        color: #7a3d00;
+        margin-top: clamp(20px, 5vw, 30px);
+        line-height: 1.2;
+      }
+      .letter-name {
+        font-family: "Pinyon Script", cursive;
+        font-size: clamp(2rem, 8vw, 2.9rem);
+        color: #8a4800;
+        margin-top: 4px;
+      }
+      .ps {
+        font-family: "IM Fell English", serif;
+        font-style: italic;
+        font-size: clamp(0.78rem, 2.5vw, 0.88rem);
+        color: #6b4a20;
+        margin-top: clamp(16px, 4vw, 24px);
+        border-top: 1px solid rgba(201, 169, 110, 0.35);
+        padding-top: clamp(12px, 3vw, 16px);
+      }
+
+      /* Bottom bouncing sunflowers */
+      .bottom-icons {
+        text-align: center;
+        font-size: clamp(1.3rem, 5vw, 1.7rem);
+        color: var(--sun-y);
+        letter-spacing: 0.5em;
+        opacity: 0;
+        animation: fadeIn 1s ease 5.2s forwards;
+      }
+      .bounce {
+        display: inline-block;
+        animation: sunBounce 2.2s ease-in-out infinite;
+      }
+      .bounce:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      .bounce:nth-child(3) {
+        animation-delay: 0.6s;
+      }
+      @keyframes sunBounce {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-8px) scale(1.18);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Touch ripple instead of click sparkle on mobile */
+      .ripple {
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        background: rgba(249, 201, 42, 0.35);
+        animation: rippleOut 0.6s ease-out forwards;
+      }
+      @keyframes rippleOut {
+        from {
+          transform: translate(-50%, -50%) scale(0);
+          opacity: 1;
+        }
+        to {
+          transform: translate(-50%, -50%) scale(3);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="particles" id="particles"></div>
+    <div class="petal-rain" id="petalRain"></div>
+
+    <div class="wrapper">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-small">a love letter, for you</div>
+        <div class="header-title">My Valentine</div>
+        <div class="header-line"></div>
+      </header>
+
+      <!-- Sunflower -->
+      <div class="flower-stage" id="flowerStage">
+        <div class="sun-glow"></div>
+        <svg
+          class="sunflower-svg"
+          id="sfSvg"
+          viewBox="0 0 200 240"
+          xmlns="http://www.w3.org/2000/svg"
+          overflow="visible"
+        >
+          <defs>
+            <linearGradient id="stemG" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#2f5227" />
+              <stop offset="50%" stop-color="#4e8040" />
+              <stop offset="100%" stop-color="#3a6630" />
+            </linearGradient>
+            <linearGradient id="leafG" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#72b85c" />
+              <stop offset="100%" stop-color="#3a6630" />
+            </linearGradient>
+            <linearGradient
+              id="outerPG"
+              x1="100"
+              y1="30"
+              x2="100"
+              y2="112"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0%" stop-color="#ffe048" />
+              <stop offset="40%" stop-color="#f9c92a" />
+              <stop offset="100%" stop-color="#d4880a" />
+            </linearGradient>
+            <linearGradient
+              id="innerPG"
+              x1="100"
+              y1="58"
+              x2="100"
+              y2="112"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0%" stop-color="#f0b800" />
+              <stop offset="100%" stop-color="#c06600" />
+            </linearGradient>
+            <radialGradient id="diskG1" cx="45%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#6a3400" />
+              <stop offset="55%" stop-color="#3d1c00" />
+              <stop offset="100%" stop-color="#1e0a00" />
+            </radialGradient>
+            <radialGradient id="diskG2" cx="42%" cy="38%" r="58%">
+              <stop offset="0%" stop-color="#4a2000" />
+              <stop offset="100%" stop-color="#250c00" />
+            </radialGradient>
+          </defs>
+
+          <!-- STEM -->
+          <path
+            class="sf-stem"
+            d="M100 238 C101 218 99 202 100 186 C101 170 99 158 100 145 C101 132 99 122 100 112"
+            stroke="url(#stemG)"
+            stroke-width="5.5"
+            stroke-linecap="round"
+            fill="none"
+          />
+
+          <!-- LEAF LEFT -->
+          <g class="sf-leaf sf-leaf-l">
+            <path
+              d="M99 158 C86 150 64 148 52 137 C56 126 76 131 91 142 C94 148 97 154 99 158 Z"
+              fill="url(#leafG)"
+              stroke="#2f5227"
+              stroke-width="0.8"
+            />
+            <path
+              d="M99 158 C84 146 65 139 52 137"
+              stroke="#2f5227"
+              stroke-width="0.7"
+              stroke-linecap="round"
+              fill="none"
+              opacity="0.7"
+            />
+          </g>
+
+          <!-- LEAF RIGHT -->
+          <g class="sf-leaf sf-leaf-r">
+            <path
+              d="M101 140 C113 130 133 126 147 114 C144 103 122 110 108 122 C104 129 102 136 101 140 Z"
+              fill="url(#leafG)"
+              stroke="#2f5227"
+              stroke-width="0.8"
+            />
+            <path
+              d="M101 140 C116 127 135 116 147 114"
+              stroke="#2f5227"
+              stroke-width="0.7"
+              stroke-linecap="round"
+              fill="none"
+              opacity="0.7"
+            />
+          </g>
+
+          <!-- LEAF LEFT LOWER -->
+          <g class="sf-leaf sf-leaf-l2">
+            <path
+              d="M98 184 C88 175 70 175 58 164 C61 153 80 159 94 170 C96 176 97 181 98 184 Z"
+              fill="url(#leafG)"
+              stroke="#2f5227"
+              stroke-width="0.8"
+            />
+            <path
+              d="M98 184 C84 171 67 164 58 164"
+              stroke="#2f5227"
+              stroke-width="0.7"
+              stroke-linecap="round"
+              fill="none"
+              opacity="0.6"
+            />
+          </g>
+
+          <!-- PETALS built by JS -->
+          <g id="petalGroup"></g>
+
+          <!-- DISK built by JS -->
+          <g class="sf-disk" id="diskGroup">
+            <circle cx="100" cy="112" r="34" fill="url(#diskG1)" />
+            <circle cx="100" cy="112" r="28" fill="url(#diskG2)" />
+            <g
+              class="disk-seeds"
+              id="seeds"
+              style="transform-origin: 100px 112px"
+            ></g>
+            <ellipse
+              cx="91"
+              cy="101"
+              rx="9"
+              ry="6"
+              fill="white"
+              opacity="0.05"
+            />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Letter -->
+      <div class="letter-card">
+        <div class="wax-seal">🌻</div>
+
+        <div class="corner tl">
+          <svg viewBox="0 0 50 50" fill="none">
+            <path
+              d="M5 45 C5 25 25 5 45 5"
+              stroke="#c9a96e"
+              stroke-width="1"
+              stroke-linecap="round"
+            />
+            <path
+              d="M5 45 C5 35 15 25 25 25 C25 15 35 5 45 5"
+              stroke="#c9a96e"
+              stroke-width="0.6"
+              stroke-linecap="round"
+              stroke-dasharray="2 3"
+            />
+            <circle cx="5" cy="45" r="2" fill="#c9a96e" />
+            <circle cx="45" cy="5" r="2" fill="#c9a96e" />
+          </svg>
+        </div>
+        <div class="corner tr">
+          <svg viewBox="0 0 50 50" fill="none">
+            <path
+              d="M5 45 C5 25 25 5 45 5"
+              stroke="#c9a96e"
+              stroke-width="1"
+              stroke-linecap="round"
+            />
+            <path
+              d="M5 45 C5 35 15 25 25 25 C25 15 35 5 45 5"
+              stroke="#c9a96e"
+              stroke-width="0.6"
+              stroke-linecap="round"
+              stroke-dasharray="2 3"
+            />
+            <circle cx="5" cy="45" r="2" fill="#c9a96e" />
+            <circle cx="45" cy="5" r="2" fill="#c9a96e" />
+          </svg>
+        </div>
+        <div class="corner bl">
+          <svg viewBox="0 0 50 50" fill="none">
+            <path
+              d="M5 45 C5 25 25 5 45 5"
+              stroke="#c9a96e"
+              stroke-width="1"
+              stroke-linecap="round"
+            />
+            <path
+              d="M5 45 C5 35 15 25 25 25 C25 15 35 5 45 5"
+              stroke="#c9a96e"
+              stroke-width="0.6"
+              stroke-linecap="round"
+              stroke-dasharray="2 3"
+            />
+            <circle cx="5" cy="45" r="2" fill="#c9a96e" />
+            <circle cx="45" cy="5" r="2" fill="#c9a96e" />
+          </svg>
+        </div>
+        <div class="corner br">
+          <svg viewBox="0 0 50 50" fill="none">
+            <path
+              d="M5 45 C5 25 25 5 45 5"
+              stroke="#c9a96e"
+              stroke-width="1"
+              stroke-linecap="round"
+            />
+            <path
+              d="M5 45 C5 35 15 25 25 25 C25 15 35 5 45 5"
+              stroke="#c9a96e"
+              stroke-width="0.6"
+              stroke-linecap="round"
+              stroke-dasharray="2 3"
+            />
+            <circle cx="5" cy="45" r="2" fill="#c9a96e" />
+            <circle cx="45" cy="5" r="2" fill="#c9a96e" />
+          </svg>
+        </div>
+
+        <div class="letter-date">
+          The 14th of February &nbsp;·&nbsp; Written by the Heart
+        </div>
+        <div class="letter-salutation">My Dearest Love,</div>
+
+        <p class="letter-body">
+          There are moments when I search for the right words and find that
+          language — that vast and ancient thing — has not yet invented what I
+          feel for you. What I know is this:
+          <em>the world is more beautiful because you are in it,</em>
+          and I am more myself when I am near you.
+        </p>
+
+        <p class="letter-body">
+          A sunflower always turns toward the sun — and that is what I do, every
+          single day, when I turn toward you. You are my warmth, my light,
+          <em>my reason to bloom.</em>
+          Without you, I would simply be a flower without its sky.
+        </p>
+
+        <div class="letter-divider">— ❧ —</div>
+
+        <div class="letter-verse">
+          "Like a sunflower faces the dawn with gold<br />
+          and follows the light till the day grows old —<br />
+          so I turn to you in every season,<br />
+          you are my sun, you are my reason.<br />
+          <em
+            >In every petal, every seed and stem,<br />
+            it is always you — it has always been."</em
+          >
+        </div>
+
+        <p class="letter-body">
+          So today, on this day the world has set aside for love, I want you to
+          know that you are not just my Valentine — you are the reason I believe
+          in tenderness, in patience, in the quiet, wild courage of choosing
+          someone, <em>every single day.</em>
+        </p>
+
+        <p class="letter-body">
+          I choose you. In all the versions of this life, I would find you. I
+          would always find you.
+        </p>
+
+        <div class="letter-closing">Forever and entirely yours,</div>
+        <div class="letter-name">With all my love 🌻</div>
+
+        <div class="ps">
+          <em>P.S.</em> — Like a sunflower planted for you — may it grow as tall
+          as what I feel, which is to say:
+          <em>endlessly toward the light that is you.</em>
+        </div>
+      </div>
+
+      <div class="bottom-icons">
+        <span class="bounce">🌻</span>
+        <span class="bounce">🌻</span>
+        <span class="bounce">🌻</span>
+      </div>
+    </div>
+
+    <script>
+      // ── PETALS ──────────────────────────────────────────────────────
+      const pg = document.getElementById("petalGroup");
+      const CX = 100,
+        CY = 112;
+
+      // Outer 16 petals
+      for (let i = 0; i < 16; i++) {
+        const angle = i * 22.5;
+        const delay = 3.3 + i * 0.075;
+        const el = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "ellipse"
+        );
+        el.setAttribute("cx", CX);
+        el.setAttribute("cy", CY - 42); // ellipse center above disk
+        el.setAttribute("rx", "9");
+        el.setAttribute("ry", "42");
+        el.setAttribute("fill", "url(#outerPG)");
+        el.setAttribute("stroke", "#c47200");
+        el.setAttribute("stroke-width", "0.5");
+        el.style.cssText = `
+    transform-origin:${CX}px ${CY}px;
+    transform:rotate(${angle}deg);
+    opacity:0;
+    animation:petalBurst 0.52s cubic-bezier(0.34,1.56,0.64,1) ${delay}s forwards;
+    --rot:${angle}deg;
+  `;
+        pg.appendChild(el);
+      }
+
+      // Inner 16 petals (shorter, offset)
+      for (let i = 0; i < 16; i++) {
+        const angle = 11.25 + i * 22.5;
+        const delay = 4.9 + i * 0.065;
+        const el = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "ellipse"
+        );
+        el.setAttribute("cx", CX);
+        el.setAttribute("cy", CY - 28);
+        el.setAttribute("rx", "6.5");
+        el.setAttribute("ry", "30");
+        el.setAttribute("fill", "url(#innerPG)");
+        el.setAttribute("stroke", "none");
+        el.style.cssText = `
+    transform-origin:${CX}px ${CY}px;
+    transform:rotate(${angle}deg);
+    opacity:0;
+    animation:petalBurst 0.46s cubic-bezier(0.34,1.56,0.64,1) ${delay}s forwards;
+    --rot:${angle}deg;
+  `;
+        pg.appendChild(el);
+      }
+
+      // ── FIBONACCI SEED SPIRAL ────────────────────────────────────
+      const seedsG = document.getElementById("seeds");
+      const phi = Math.PI * (3 - Math.sqrt(5));
+      for (let i = 0; i < 100; i++) {
+        const r = 2.9 * Math.sqrt(i);
+        if (r > 26) break;
+        const theta = i * phi;
+        const x = CX + r * Math.cos(theta);
+        const y = CY + r * Math.sin(theta);
+        const radius = 1.3 + (1 - r / 26) * 0.6;
+        const L = 12 + (r / 26) * 18;
+        const c = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "circle"
+        );
+        c.setAttribute("cx", x);
+        c.setAttribute("cy", y);
+        c.setAttribute("r", radius);
+        c.setAttribute("fill", `hsl(24,82%,${L}%)`);
+        c.setAttribute("opacity", "0.93");
+        seedsG.appendChild(c);
+      }
+
+      // ── PARTICLES ────────────────────────────────────────────────
+      const pCont = document.getElementById("particles");
+      const pCols = [
+        "#f9c92a",
+        "#e8960a",
+        "#ffe048",
+        "#ffd700",
+        "#c9a96e",
+        "#fff4aa",
+        "#a8d060",
+      ];
+      const isMobile = window.innerWidth < 600;
+      const pCount = isMobile ? 22 : 40;
+      for (let i = 0; i < pCount; i++) {
+        const p = document.createElement("div");
+        p.className = "particle";
+        const s = Math.random() * 6 + 2;
+        p.style.cssText = `
+    width:${s}px;height:${s}px;left:${Math.random() * 100}%;
+    background:${pCols[Math.floor(Math.random() * pCols.length)]};
+    animation-duration:${Math.random() * 12 + 8}s;
+    animation-delay:${Math.random() * 14}s;
+    filter:blur(${Math.random() > 0.75 ? 1 : 0}px);
+  `;
+        pCont.appendChild(p);
+      }
+
+      // ── FALLING SYMBOLS ───────────────────────────────────────────
+      const pr = document.getElementById("petalRain");
+      const syms = ["✿", "❀", "·", "✦", "★"];
+      const rCount = isMobile ? 10 : 18;
+      for (let i = 0; i < rCount; i++) {
+        const h = document.createElement("div");
+        h.className = "fall-item";
+        h.textContent = syms[Math.floor(Math.random() * syms.length)];
+        h.style.cssText = `
+    left:${Math.random() * 100}%;
+    font-size:${Math.random() * 13 + 7}px;
+    animation-duration:${Math.random() * 12 + 9}s;
+    animation-delay:${Math.random() * 18}s;
+    color:hsl(${38 + Math.random() * 22},${65 + Math.random() * 25}%,${
+          55 + Math.random() * 20
+        }%);
+  `;
+        pr.appendChild(h);
+      }
+
+      // ── TAP / CLICK SPARKLE ───────────────────────────────────────
+      function spawnSparkles(x, y) {
+        for (let i = 0; i < 8; i++) {
+          const sp = document.createElement("div");
+          const angle = (i / 8) * Math.PI * 2;
+          const dist = Math.random() * 55 + 20;
+          sp.style.cssText = `
+      position:fixed;left:${x}px;top:${y}px;
+      width:6px;height:6px;border-radius:50%;
+      background:${Math.random() > 0.4 ? "#f9c92a" : "#e8960a"};
+      pointer-events:none;z-index:9999;
+      transition:transform .6s ease-out,opacity .6s ease-out;
+      transform:translate(-50%,-50%);
+    `;
+          document.body.appendChild(sp);
+          requestAnimationFrame(() => {
+            sp.style.transform = `translate(calc(-50% + ${
+              Math.cos(angle) * dist
+            }px),calc(-50% + ${Math.sin(angle) * dist}px)) scale(0)`;
+            sp.style.opacity = "0";
+          });
+          setTimeout(() => sp.remove(), 700);
+        }
+      }
+
+      document.addEventListener("click", (e) =>
+        spawnSparkles(e.clientX, e.clientY)
+      );
+      document.addEventListener(
+        "touchstart",
+        (e) => {
+          const t = e.touches[0];
+          spawnSparkles(t.clientX, t.clientY);
+        },
+        { passive: true }
+      );
+    </script>
+  </body>
+</html>
